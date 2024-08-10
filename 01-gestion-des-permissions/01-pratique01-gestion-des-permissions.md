@@ -1,4 +1,4 @@
-### **Gestion des Permissions**
+# **Gestion des Permissions**
 
 #### **1. Connexion en tant que Superutilisateur**
 ```bash
@@ -85,19 +85,9 @@ su danielle -c 'echo "Danielle" >> /home/shared_data/file1.txt'
 
 
 
-
-
-
-
 # Annexe 01 - useradd vs adduser 
+### Création d'Utilisateurs avec `useradd` et `adduser`
 
-Voici un exemple d'annexe que vous pourriez utiliser pour expliquer la différence entre `useradd` et `adduser` et comment chacun fonctionne :
-
----
-
-### Annexe : Création d'Utilisateurs avec `useradd` et `adduser`
-
-#### Introduction
 La gestion des utilisateurs est une tâche fondamentale en administration système sous Linux. Deux commandes principales sont couramment utilisées pour créer des utilisateurs : `useradd` et `adduser`. Bien qu'elles aient des noms similaires, elles fonctionnent différemment.
 
 #### `useradd` : La Commande Basique
@@ -142,9 +132,52 @@ Le système vous posera une série de questions :
 #### Conclusion
 La différence entre `useradd` et `adduser` est principalement liée à l'interaction et à la facilité d'utilisation. Les administrateurs qui préfèrent un contrôle total et moins d'interaction opteront pour `useradd`, tandis que ceux qui apprécient un processus guidé trouveront `adduser` plus adapté. Selon vos besoins spécifiques, vous pouvez choisir l'une ou l'autre de ces commandes pour gérer efficacement les utilisateurs sur votre système Linux.
 
+# Annexe 02 - mot de passe
 
+Lorsque vous utilisez la commande `useradd`, par défaut, elle ne demande pas de créer un mot de passe pour l'utilisateur. Pour ajouter un mot de passe immédiatement après avoir créé un utilisateur, vous pouvez utiliser la commande `passwd`. Voici comment procéder :
 
-### **Questions de Réflexion**
+```bash
+# Créer les utilisateurs
+useradd -m pierre
+useradd -m marie
+useradd -m luc
+useradd -m sophie
+
+# Ajouter un mot de passe pour chaque utilisateur
+passwd pierre
+passwd marie
+passwd luc
+passwd sophie
+```
+
+Avec chaque commande `passwd`, le système vous demandera d'entrer un mot de passe pour l'utilisateur spécifié. Assurez-vous que le mot de passe est conforme aux règles de sécurité du système (par exemple, longueur minimale, complexité, etc.).
+
+Si vous voulez automatiser la création de l'utilisateur avec un mot de passe, vous pouvez utiliser la commande suivante, mais attention à la sécurité puisque le mot de passe sera visible dans l'historique des commandes :
+
+```bash
+echo "motdepasse" | passwd --stdin nom_utilisateur
+```
+
+Notez que l'option `--stdin` fonctionne sur certaines distributions Linux, comme Red Hat ou CentOS. Si cette option n'est pas disponible, vous devrez utiliser la méthode précédente pour définir les mots de passe manuellement.
+
+# Annexe 03 - changer le mot de passe
+
+- Pour changer le mot de passe de l'utilisateur `luc`, vous pouvez utiliser la commande suivante :
+
+```bash
+passwd luc
+```
+
+Après avoir exécuté cette commande, le système vous demandera de saisir un nouveau mot de passe pour l'utilisateur `luc`, puis de le confirmer en le saisissant une deuxième fois.
+
+Voici comment cela se déroule :
+
+1. **Entrez le nouveau mot de passe** : Tapez le nouveau mot de passe pour `luc`.
+2. **Confirmez le mot de passe** : Retapez le même mot de passe pour confirmation.
+
+Une fois ces étapes terminées, le mot de passe de l'utilisateur `luc` sera mis à jour.
+
+# Annexe 04 -  **Questions de Réflexion**
 
 ### **Objectif**: 
 - Mieux comprendre la gestion des permissions dans Linux et l'impact de ces configurations sur la sécurité globale du système.
