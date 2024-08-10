@@ -82,6 +82,68 @@ su claude -c 'bash /home/shared_data/dossier1/script1.sh'
 su danielle -c 'echo "Danielle" >> /home/shared_data/file1.txt'
 ```
 
+
+
+
+
+
+
+
+# Annexe 01 - useradd vs adduser 
+
+Voici un exemple d'annexe que vous pourriez utiliser pour expliquer la différence entre `useradd` et `adduser` et comment chacun fonctionne :
+
+---
+
+### Annexe : Création d'Utilisateurs avec `useradd` et `adduser`
+
+#### Introduction
+La gestion des utilisateurs est une tâche fondamentale en administration système sous Linux. Deux commandes principales sont couramment utilisées pour créer des utilisateurs : `useradd` et `adduser`. Bien qu'elles aient des noms similaires, elles fonctionnent différemment.
+
+#### `useradd` : La Commande Basique
+
+La commande `useradd` est un utilitaire standard disponible sur toutes les distributions Linux. Elle permet de créer un nouvel utilisateur sans interaction humaine, ce qui la rend idéale pour les scripts d'automatisation. Toutefois, `useradd` ne demande pas de mot de passe ni d'informations supplémentaires par défaut. Voici un exemple de son utilisation :
+
+```bash
+# Créer un utilisateur sans mot de passe
+useradd -m albert
+```
+
+Après avoir créé l'utilisateur, vous devez définir un mot de passe manuellement avec la commande `passwd` :
+
+```bash
+# Ajouter un mot de passe pour l'utilisateur
+passwd albert
+```
+
+#### `adduser` : La Version Conviviale
+
+Sur certaines distributions Linux, comme Debian et Ubuntu, `adduser` est une commande plus conviviale, qui est en réalité un script Perl enveloppant `useradd`. Cette commande guide l'administrateur à travers un processus interactif où il peut configurer plusieurs aspects du compte utilisateur, y compris le mot de passe, le nom complet, et d'autres informations facultatives.
+
+Voici comment utiliser `adduser` :
+
+```bash
+# Créer un utilisateur avec un processus interactif
+adduser albert
+```
+
+Le système vous posera une série de questions :
+
+1. **Mot de passe** : Vous serez invité à entrer et confirmer le mot de passe de l'utilisateur.
+2. **Nom complet** : Vous pouvez fournir un nom complet pour l'utilisateur (optionnel).
+3. **Numéro de chambre, Téléphone de travail, Téléphone personnel, Autres informations** : Ces champs sont facultatifs et peuvent être laissés vides en appuyant sur `Entrée`.
+4. **Confirmation** : Vous devrez confirmer les informations avant que l'utilisateur ne soit créé.
+
+#### Quand Utiliser `useradd` ou `adduser` ?
+
+- **`useradd`** : Utilisez cette commande lorsque vous avez besoin de créer des utilisateurs via un script ou lorsque vous ne souhaitez pas être invité à entrer des informations supplémentaires.
+- **`adduser`** : Utilisez cette commande lorsque vous préférez un processus interactif et souhaitez configurer plusieurs détails du compte utilisateur en une seule étape.
+
+#### Conclusion
+La différence entre `useradd` et `adduser` est principalement liée à l'interaction et à la facilité d'utilisation. Les administrateurs qui préfèrent un contrôle total et moins d'interaction opteront pour `useradd`, tandis que ceux qui apprécient un processus guidé trouveront `adduser` plus adapté. Selon vos besoins spécifiques, vous pouvez choisir l'une ou l'autre de ces commandes pour gérer efficacement les utilisateurs sur votre système Linux.
+
+
+
 ### **Questions de Réflexion**
 
 ### **Objectif**: 
