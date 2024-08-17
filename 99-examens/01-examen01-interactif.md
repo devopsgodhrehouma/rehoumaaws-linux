@@ -1,26 +1,64 @@
-### Script Bash Interactif : `exercice_linux_choix.sh`
+### Script Bash Interactif avec Illustrations ASCII pour "CORRECT !" et "FAUX" : `exercice_linux_final.sh`
 
 ```bash
 #!/bin/bash
 
+# Vérification si figlet est installé
+if ! command -v figlet &> /dev/null
+then
+    echo "figlet n'est pas installé. Installation en cours..."
+    sudo apt-get install -y figlet
+fi
+
 score=0
 total_questions=30
 
-# Fonction pour vérifier la commande
+# Fonction pour afficher un message de succès avec une illustration ASCII
+display_success() {
+    figlet "CORRECT !"
+    echo "    / \\__"
+    echo "   (    @\\___"
+    echo "   /         O"
+    echo "  /   (_____/"
+    echo " /_____/ U"
+    echo ""
+}
+
+# Fonction pour afficher un message d'échec avec une illustration ASCII
+display_failure() {
+    figlet "FAUX !"
+    echo "    _____  "
+    echo "   /     \\ "
+    echo "  | () () |"
+    echo "   \\  ^  / "
+    echo "    |||||  "
+    echo "    |||||  "
+    echo ""
+    figlet "Oups, ce n'est pas la bonne commande. Essayez encore."
+}
+
+# Fonction pour vérifier la commande, l'exécuter, afficher le résultat, et afficher "CORRECT!" ou "FAUX" avec des illustrations ASCII
 test_command() {
     local correct_cmd="$1"
     local user_cmd=""
+    local suppress_output="$3"
     while true; do
         echo "Options: $2"
         read -p "Choisissez une option: " user_cmd
         if [ "$user_cmd" == "$correct_cmd" ]; then
-            echo "Correct !"
+            if [ "$suppress_output" != "true" ]; then
+                echo "Exécution de la commande: $user_cmd"
+                eval "$user_cmd"
+            fi
+            display_success
             score=$((score + 1))
             break
         else
-            echo "Oups, ce n'est pas la bonne commande. Essayez encore."
+            display_failure
         fi
     done
+    echo "Score actuel : $score / $total_questions"
+    echo ""
 }
 
 # Création d'un répertoire de travail
@@ -65,15 +103,17 @@ echo ""
 echo "Question 1: Les commandes sont sensibles à la casse."
 test_command "ls" "ls, LS"
 
-# Question 2
+# Question 2 avec histoire
 echo ""
-echo "Question 2: Lorsque vous tapez une commande, lequel va généralement en premier, les arguments ou les options ?"
-test_command "ls -l /home/$USER" "/home/$USER ls -l, ls -l /home/$USER"
+echo "Question 2: Vous êtes un administrateur système chez TechCorp."
+echo "Un jour, vous devez vérifier les fichiers dans le répertoire personnel d'un utilisateur pour détecter un problème potentiel."
+echo "Il vous est demandé d'afficher la liste des fichiers dans le répertoire personnel avec des détails."
+test_command "ls -l /home/$USER" "ls -l /home/$USER, /home/$USER ls -l"
 
-# Question 3
+# Correction de la Question 3
 echo ""
 echo "Question 3: Lequel des suivants n'est pas un moyen correct de combiner des options?"
-test_command "ls -r l" "-l -r, -rl, -r l, -lr"
+test_command "ls -l -r" "-l -r, -rl, -r l, -lr"
 
 # Question 4
 echo ""
@@ -181,9 +221,11 @@ echo "Question 24: Laquelle des lignes suivantes correspond à la commande grep 
 test_command "bet" "boet, bet, beet, boot"
 
 # Question 25
+
+
 echo ""
 echo "Question 25: Laquelle des commandes suivantes n’arrête pas le système immédiatement?"
-test_command "shutdown +0" "shutdown now 'Goodbye World!', shutdown +0, shutdown now, shutdown"
+test_command "shutdown +0" "shutdown now 'Goodbye World!', shutdown +0, shutdown now, shutdown" true
 
 # Question 26
 echo ""
@@ -211,30 +253,37 @@ echo "Question 30: La commande ping utilise des adresses IP pour identifier un o
 test_command "True" "True, False"
 
 # Affichage du score final
-echo "Vous avez terminé l'exercice avec un score de $score sur $total_questions."
+figlet "SCORE FINAL : $score / $total_questions"
 ```
 
+### Explications des Modifications
 
-### Instructions pour les étudiants 
+1. **Illustration ASCII pour succès** : Lorsqu'une réponse est correcte, une illustration d'un chien avec un message "CORRECT !" est affichée en grand avec `figlet`.
+  
+2. **Illustration ASCII pour échec** : Lorsqu'une réponse est incorrecte, une illustration d'un visage triste avec un message "FAUX !" est affichée en grand avec `figlet`.
 
-1. **Téléchargez le script** : Téléchargez le script `exercice_linux_choix.sh` sur votre système Ubuntu 22.04.
+3. **Affichage du score à chaque étape** : Après chaque réponse, le score actuel est affiché.
+
+### Instructions pour les étudiants
+
+1. **Téléchargez le script** : Téléchargez le script `exercice_linux_final.sh` sur votre système Ubuntu 22.04.
 
 2. **Rendez le script exécutable** : Pour exécuter le script, il faut d'abord le rendre exécutable :
    ```bash
-   chmod +x exercice_linux_choix.sh
+   chmod +x exercice_linux_final.sh
    ```
 
 3. **Exécutez le script** : Lancez le script pour commencer les exercices interactifs :
    ```bash
-   ./exercice_linux_choix.sh
+   ./exercice_linux_final.sh
    ```
 
-4. **Répondez aux questions** : À chaque question, le script vous proposera plusieurs options. Vous devrez choisir la bonne commande parmi les options données. Si votre choix est incorrect, vous aurez la possibilité de réessayer jusqu'à ce que vous sélectionniez la bonne réponse.
+4. **Répondez aux questions** : À chaque question, le script vous proposera plusieurs options. Vous devrez choisir la bonne commande parmi les options données. Si votre choix est incorrect, vous verrez une croix en gros. Vous aurez la possibilité de réessayer jusqu'à ce que vous sélectionniez la bonne réponse.
 
-5. **Validez vos réponses** : Une fois que vous avez trouvé la bonne commande, le script vous demandera de la retaper pour confirmer votre réponse.
+5. **Voyez le résultat en direct** : Une fois que vous avez sélectionné la bonne commande, le script l'exécutera et affichera le résultat de cette commande en temps réel, vous permettant de voir son effet concret (à l'exception des commandes dangereuses comme `shutdown`).
 
-6. **Recevez un feedback immédiat** : Le script vous indiquera si votre commande est correcte ou non et vous permettra de réessayer si nécessaire. À la fin de l'exercice, votre score total sera affiché.
+6. **Recevez un feedback en grand** : Le script affichera "CORRECT !" avec une illustration en grand lorsque vous aurez trouvé la bonne commande.
 
-7. **Apprenez en pratiquant** : Ce script est conçu pour renforcer vos compétences en ligne de commande Linux en vous permettant de pratiquer et de tester différentes commandes dans un environnement interactif.
+7. **Continuez avec les autres questions** : Le script continuera à poser les questions suivantes, vous permettant d'apprendre et de valider vos connaissances en ligne de commande Linux tout en voyant les résultats de vos actions.
 
-
+8. **Score final en grand** : À la fin de l'exercice, votre score total sera affiché en grand avec `figlet` pour que vous puissiez évaluer votre maîtrise des commandes Linux.
