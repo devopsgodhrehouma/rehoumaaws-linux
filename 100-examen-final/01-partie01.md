@@ -81,7 +81,7 @@ chmod -R 444 /home/shared_data
 
 ## 6. Résolution des Problèmes
 
-Les étudiants doivent identifier et corriger les problèmes de permission identifiés dans chaque scénario. Pour chaque scénario :
+Vous devez identifier et corriger les problèmes de permission identifiés dans chaque scénario. Pour chaque scénario :
 
 1. **Explication** : Expliquez pourquoi l'utilisateur n'a pas pu réaliser l'action demandée.
 2. **Commande Corrective** : Fournissez la ou les commandes nécessaires pour corriger les permissions et permettre à l'utilisateur de réaliser l'action.
