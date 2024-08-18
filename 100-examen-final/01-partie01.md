@@ -1,5 +1,4 @@
-# Examen Linux Ubuntu 22.04 : Gestion des Permissions - Niveau Avancé
-
+# Examen Linux Ubuntu 22.04 : Gestion des Permissions - Partie 01
 ## 1. Connexion en tant que Superutilisateur
 
 ```bash
