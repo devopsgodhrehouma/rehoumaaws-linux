@@ -100,10 +100,11 @@ Enter current password for root : [Appuyez sur Entrée]
 Switch to unix_socket authentication [Y/n] Y
 Change the root password? [Y/n] n
 Remove anonymous users? [Y/n] Y
-Disallow root login remotely? [Y/n] Y
+Disallow root login remotely? [Y/n] n
 Remove test database and access to it? [Y/n] Y
 Reload privilege tables now? [Y/n] Y
 ```
+
 
 ### 4. Installation via l'interface web
 
@@ -113,6 +114,33 @@ Reload privilege tables now? [Y/n] Y
    - Nom d'utilisateur : wordpressuser
    - Mot de passe : securepassword1
    - Hôte de la base de données : localhost
+
+### 5. Troubleshooting pour le 8080
+
+1. **Créer un fichier de configuration pour le port 8080**:
+
+   Vous pouvez créer un fichier de configuration spécifique dans le dossier `/etc/apache2/conf-available/` pour ajouter le port 8080.
+
+   ```bash
+   sudo bash -c 'echo "Listen 8080" > /etc/apache2/conf-available/port8080.conf'
+   ```
+
+2. **Activer cette configuration**:
+
+   Activez ensuite cette configuration avec la commande suivante :
+
+   ```bash
+   sudo a2enconf port8080
+   ```
+
+3. **Redémarrer Apache**:
+
+   Enfin, redémarrez Apache pour appliquer les modifications :
+
+   ```bash
+   sudo systemctl restart apache2
+   ```
+
 
 ### 5. Finalisation
 
