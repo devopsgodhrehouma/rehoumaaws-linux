@@ -142,6 +142,25 @@ Reload privilege tables now? [Y/n] Y
    ```
 
 
+# Pour résumer :
+
+  ```bash
+
+# Méthode 1 : Utilisation d'un fichier de configuration séparé
+sudo bash -c 'echo "Listen 8080" > /etc/apache2/conf-available/port8080.conf'
+sudo a2enconf port8080
+sudo systemctl restart apache2
+ ```
+
+## ou 
+
+  ```bash
+# Méthode 2 : Ajout direct dans le fichier ports.conf
+echo "Listen 8081" | sudo tee -a /etc/apache2/ports.conf
+sudo systemctl restart apache2
+
+   ```
+
 ### 5. Finalisation
 
 1. Une fois l'installation terminée, connectez-vous à votre tableau de bord WordPress avec les identifiants que vous avez créés.
@@ -372,3 +391,20 @@ En suivant ces instructions, vous démontrerez non seulement votre capacité à 
 - [MariaDB Documentation](https://mariadb.com/kb/en/documentation/)
 
 
+---
+
+# Annexe: La différence principale entre tee et sudo bash :
+
+1. **`echo "Listen 8081" | sudo tee -a /etc/apache2/ports.conf`** :
+   - Cette commande ajoute la ligne `Listen 8081` directement à la fin du fichier `ports.conf`.
+   - Elle modifie le fichier principal de configuration des ports d'Apache (`ports.conf`), ce qui peut être moins flexible si vous avez besoin de gérer plusieurs configurations ou si vous voulez garder ce fichier intact pour faciliter les mises à jour ou le dépannage.
+   - Cette méthode est simple et rapide, mais elle implique de modifier un fichier de configuration central, ce qui peut ne pas être idéal dans certains contextes où l'intégrité des fichiers de configuration par défaut doit être préservée.
+
+2. **Créer un fichier de configuration spécifique avec `sudo bash -c 'echo "Listen 8080" > /etc/apache2/conf-available/port8080.conf'`** :
+   - Cette méthode crée un nouveau fichier de configuration dans le répertoire `conf-available`, qui est dédié aux configurations supplémentaires.
+   - Elle est plus modulaire et permet de garder les configurations spécifiques séparées du fichier principal `ports.conf`.
+   - Cette approche est préférée si vous souhaitez gérer les configurations de manière plus structurée, car vous pouvez activer ou désactiver cette configuration spécifique sans toucher aux fichiers de configuration par défaut. Cela facilite également la maintenance et le débogage.
+
+**Résumé**:
+- **`tee` sur `ports.conf`** : Modifie directement le fichier de configuration principal, simple mais moins modulaire.
+- **Fichier de configuration séparé** : Plus modulaire, facilite la gestion des configurations spécifiques sans altérer les fichiers principaux.
