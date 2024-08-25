@@ -391,9 +391,42 @@ En suivant ces instructions, vous démontrerez non seulement votre capacité à 
 - [MariaDB Documentation](https://mariadb.com/kb/en/documentation/)
 
 
----
 
-# Annexe: La différence principale entre tee et sudo bash :
+
+
+-----
+
+# Annexe 01: changer au port 8080
+
+----
+
+
+# Pour résumer :
+
+# Méthode 1 : Utilisation d'un fichier de configuration séparé
+sudo bash -c 'echo "Listen 8080" > /etc/apache2/conf-available/port8080.conf'
+sudo a2enconf port8080
+sudo systemctl restart apache2
+
+## ou 
+
+# Méthode 2 : Ajout direct dans le fichier ports.conf
+echo "Listen 8081" | sudo tee -a /etc/apache2/ports.conf
+sudo systemctl restart apache2
+```
+
+### Explications des corrections :
+
+1. Dans la méthode 2, j'ai supprimé la ligne `sudo a2enconf port8080` car elle n'est pas nécessaire lorsque vous modifiez directement le fichier `ports.conf`. Cette commande était redondante pour la méthode d'ajout direct dans `ports.conf`.
+
+2. Les deux méthodes sont maintenant correctes et montrent les deux approches possibles pour configurer Apache pour écouter sur un port spécifique.
+
+
+-----
+
+# Annexe 02: La différence principale entre tee et sudo bash :
+
+----
 
 1. **`echo "Listen 8081" | sudo tee -a /etc/apache2/ports.conf`** :
    - Cette commande ajoute la ligne `Listen 8081` directement à la fin du fichier `ports.conf`.
