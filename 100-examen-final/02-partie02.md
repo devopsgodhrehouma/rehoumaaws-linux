@@ -404,13 +404,20 @@ En suivant ces instructions, vous démontrerez non seulement votre capacité à 
 # Pour résumer :
 
 # Méthode 1 : Utilisation d'un fichier de configuration séparé
+
+
+```bash
 sudo bash -c 'echo "Listen 8080" > /etc/apache2/conf-available/port8080.conf'
 sudo a2enconf port8080
 sudo systemctl restart apache2
 
+```
+
 ## ou 
 
 # Méthode 2 : Ajout direct dans le fichier ports.conf
+
+```bash
 echo "Listen 8081" | sudo tee -a /etc/apache2/ports.conf
 sudo systemctl restart apache2
 ```
