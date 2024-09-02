@@ -1,5 +1,5 @@
 ----------
-# Question d'entrevue # 1 (LINUX)
+# Question d'entrevue 1 (LINUX)
 ----------
 
 ![image](https://github.com/user-attachments/assets/adf703df-3337-4520-aba1-611babc3ac68)
