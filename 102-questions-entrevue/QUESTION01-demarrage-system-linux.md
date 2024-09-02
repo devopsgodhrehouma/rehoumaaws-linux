@@ -49,7 +49,7 @@ Le processus de démarrage de Linux expliqué dans l'image suit une séquence d'
 Ce processus de démarrage est crucial pour qu'un système Linux passe de l'état de machine éteinte à un système d'exploitation entièrement opérationnel. Chacune de ces étapes est soigneusement orchestrée pour assurer la mise en service correcte du matériel et du logiciel, permettant ainsi à l'utilisateur d'interagir avec le système de manière fiable.
 
 ---
-# Annexe
+# Annexe 01
 ----
 
 ### Processus de Démarrage de Linux: Explication Détailleé
@@ -165,3 +165,63 @@ Le processus de démarrage de Linux est une séquence complexe mais essentielle 
 ```
 
 Ce schéma illustre visuellement chaque étape du processus de démarrage de Linux, de l'allumage initial à l'écran de connexion où l'utilisateur peut interagir avec le système.
+
+
+----------
+# ANNEXE 02
+--------
+
+
+```plaintext
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| Fichier/Service   | Rôle                                                        | Exemple d'utilisation                         |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| /systemd-logind   | Gestion des sessions utilisateur, gestion des périphériques | Commandes comme `loginctl` pour gérer les     |
+|                   | connectés, gestion de la mise en veille.                    | sessions utilisateur                          |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| /etc/profile      | Configuration globale de l'environnement utilisateur        | Définir PATH global pour tous les utilisateurs|
+|                   | au démarrage du shell.                                       |                                               |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| ~/.bashrc         | Configuration spécifique à l'utilisateur pour les shells    | Définir des alias, personnaliser le prompt,   |
+|                   | interactifs non-login.                                      | et charger des variables d'environnement      |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| /etc/bash.bashrc  | Configuration du shell pour tous les utilisateurs           | Configurer des paramètres globaux pour tous   |
+|                   | lors de l'ouverture d'un shell interactif.                  | les utilisateurs comme des alias et fonctions |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| /etc/environment  | Définition des variables d'environnement globales           | Définir des variables qui sont accessibles    |
+|                   | utilisées par les processus à travers tout le système.      | par tous les processus utilisateurs et systèmes|
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| /etc/login.defs   | Définitions des paramètres de configuration des sessions    | Configurer les paramètres par défaut pour la  |
+|                   | utilisateurs tels que les limites de ressources et les      | création de nouveaux utilisateurs (ex: umask, |
+|                   | informations de création de nouveaux utilisateurs.          | UID, GID)                                     |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| /etc/skel/        | Répertoire contenant les fichiers modèles pour les nouveaux | Lorsque de nouveaux utilisateurs sont créés,  |
+|                   | comptes utilisateurs. Ces fichiers sont copiés dans le      | leurs répertoires personnels sont initialisés |
+|                   | répertoire personnel de l'utilisateur lors de sa création.  | avec le contenu de `/etc/skel/`.              |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| ~/.bash_profile   | Script de configuration spécifique à l'utilisateur pour les | Utilisé pour configurer l'environnement de    |
+|                   | shells de login (connexion initiale).                       | connexion des utilisateurs                    |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| ~/.profile        | Similaire à `.bash_profile`, mais plus général, utilisé par | Chargé par les shells de login et d'autres    |
+|                   | plusieurs types de shells, non spécifique à Bash.           | environnements pour définir l'environnement.  |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+| ~/.bash_logout    | Script exécuté lors de la déconnexion de l'utilisateur.     | Permet de nettoyer l'environnement, comme     |
+|                   |                                                             | effacer l'historique ou démonter des volumes  |
++-------------------+-------------------------------------------------------------+-----------------------------------------------+
+```
+
+### **Détails Importants :**
+
+- **`/etc/bash.bashrc`** : Semblable à `~/.bashrc`, mais affecte tous les utilisateurs. Il est utilisé pour configurer des alias, des fonctions, et d'autres paramètres qui s'appliquent à tous les utilisateurs lors de l'ouverture d'un shell interactif.
+  
+- **`/etc/environment`** : Ce fichier est utilisé pour définir des variables d'environnement globales qui sont accessibles par tous les processus. Contrairement à `/etc/profile`, il ne contient que des définitions de variables.
+
+- **`/etc/login.defs`** : Ce fichier configure les paramètres système pour les comptes utilisateur, tels que la plage d'UID, les politiques de mots de passe, etc.
+
+- **`/etc/skel/`** : Ce répertoire contient les fichiers de configuration par défaut pour les nouveaux utilisateurs. Lorsqu'un nouveau compte utilisateur est créé, les fichiers contenus dans `/etc/skel/` sont copiés dans le répertoire personnel de l'utilisateur (`~`).
+
+- **`~/.bash_profile` et `~/.profile`** : Ces fichiers sont utilisés pour configurer l'environnement de connexion utilisateur. `.bash_profile` est spécifique à Bash tandis que `.profile` est plus général et est utilisé par plusieurs types de shells.
+
+- **`~/.bash_logout`** : Ce script est exécuté automatiquement lorsque l'utilisateur se déconnecte. Il est souvent utilisé pour effectuer des tâches de nettoyage comme supprimer des fichiers temporaires ou démonter des systèmes de fichiers.
+
+Chacun de ces fichiers et services joue un rôle clé dans la gestion de l'environnement utilisateur, garantissant que les sessions se déroulent de manière fluide et sécurisée sur un système Linux.
