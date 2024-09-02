@@ -426,7 +426,7 @@ Cette séquence assure que l'environnement utilisateur est configuré avec les p
 ----
 
 
-Voici une table comparative exhaustive des commandes `su`, `su -`, `sudo -s`, `sudo -i` et d'autres variantes pour expliquer les différences à vos étudiants. Cette table met en lumière les effets de chaque commande, les fichiers de configuration appelés, et les principaux aspects à considérer lors de leur utilisation.
+Voici une table comparative exhaustive des commandes `su`, `su -`, `sudo -s`, `sudo -i` et d'autres variantes pour vous expliquer les différences. Cette table met en lumière les effets de chaque commande, les fichiers de configuration appelés, et les principaux aspects à considérer lors de leur utilisation.
 
 ```plaintext
 +------------+--------------------------------+-----------------------------------------+---------------------------------+-----------------------------------------+
@@ -513,7 +513,7 @@ Chaque commande a son utilité en fonction des besoins : changer d'utilisateur, 
 ----
 ### Comparaison et Utilisation des Commandes `su`, `su -`, `sudo -s`, `sudo -i`, et Autres
 
-Pour aider vos étudiants à bien comprendre quand utiliser chacune de ces commandes et les différences subtiles entre elles, voici une explication encore plus détaillée de chaque commande, avec des recommandations sur les situations spécifiques où elles sont le plus appropriées.
+Pour vous aider à bien comprendre quand utiliser chacune de ces commandes et les différences subtiles entre elles, voici une explication encore plus détaillée de chaque commande, avec des recommandations sur les situations spécifiques où elles sont le plus appropriées.
 
 #### 1. **`su` (sans options)**
    - **Description :**
@@ -699,7 +699,7 @@ Cette connaissance permet à vos étudiants de choisir la commande appropriée e
 ---
 ---
 ---
-# ANNEXE 10 -  Workshop : Création d'un Utilisateur et Ajout aux Sudoers sous Linux
+# ANNEXE 09 -  Workshop : Création d'un Utilisateur et Ajout aux Sudoers sous Linux
 ----
 
 
